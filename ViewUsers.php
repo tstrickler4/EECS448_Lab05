@@ -9,7 +9,7 @@
 
     if ($result = $mysqli->query($query)) {
         while($row = $result->fetch_assoc()) {
-            printf("%s<br>", $row["user_id"]);
+            echo $row["user_id"] . "<br>";
         }
         $result->free();
     }
