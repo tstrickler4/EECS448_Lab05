@@ -9,7 +9,7 @@
     echo "<script type='text/javascript'>";
 
     $user_id = $_POST["user_id"];
-    echo "alert('{$user_id}');";
+    
     $query = "INSERT INTO Users (user_id) VALUES ('{$user_id}')";
     if ($mysqli->query($query)) {
         echo "alert('Username created successfully.');";
