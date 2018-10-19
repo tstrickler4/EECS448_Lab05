@@ -4,25 +4,26 @@
     </head>
     <body>
         <h1>Select User</h1>
-        <?php
-            $mysqli = new mysqli("mysql.eecs.ku.edu", "tstrickler", "vai4Chai", "tstrickler");
-            if ($mysqli->connect_errno) {
-                printf("Failed to connect: %s\n", $mysqli->connect_error);
-                exit();
-            }
+        <form action="ViewUserPosts.php" method="post">
+            <select name='user_id'>
+                <?php
+                    $mysqli = new mysqli("mysql.eecs.ku.edu", "tstrickler", "vai4Chai", "tstrickler");
+                    if ($mysqli->connect_errno) {
+                        printf("Failed to connect: %s\n", $mysqli->connect_error);
+                        exit();
+                    }
 
-            echo "<select>";
+                    $query = "SELECT user_id FROM Users ORDER BY user_id";
+                    $result = $mysqli->query($query);
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value=" . $row["user_id"] . ">" . $row["user_id"] . "</option>";
+                    }
+                    $result->free();
+                    $mysqli->close();
 
-            $query = "SELECT author_id FROM Posts ORDER BY author_id";
-            $result = $mysqli->query($query);
-            while ($row = $result->fetch_assoc()) {
-                echo "<option value='" . $row["user_id"] . "'>{$row['user_id']}</option>";
-            }
-            $result->free();
-
-            echo "</select>";
-
-            $mysqli->close();
-        ?>
+                ?>
+            </select>
+            <input type="submit" value="Submit"/>
+        </form>
     </body>
 <html>

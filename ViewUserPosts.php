@@ -4,11 +4,12 @@
         printf("Failed to connect: %s\n", $mysqli->connect_error);
         exit();
     }
-
-    echo "<select>";
-    $query = "SELECT author_id FROM Posts ORDER BY author_id";
-    while ($row = $mysqli->query($query)->fetch_assoc()) {
-        echo "<option value='{$row[user_id]}'>{$row[user_id]}</option>";
+    echo "<h1>Posts Made by {$_POST['user_id']}</h1>";
+    $query = "SELECT content FROM Posts WHERE author_id='" . $_POST["user_id"] . "'";
+    $result = $mysqli->query($query);
+    while ($row = $result->fetch_assoc()) {
+        echo "{$row['content']}<br><br>";
     }
-    echo "</select>";
+    $result->free();
+    $mysqli->close();
 ?>
