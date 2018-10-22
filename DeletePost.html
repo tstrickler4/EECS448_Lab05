@@ -1,15 +1,39 @@
 <html>
     <head>
-        <title>DeletePost</title>
+        <title>Delete Post</title>
     </head>
     <body>
         <h1>Delete Post</h1>
-        <table>
-            <tr>
-                <th>Author</th>
-                <th>Post</th>
-                <th>Delete</th>
-            </tr>
-        </table>
+        <form action="DeletePost.php" method="post" target="alert">
+            <table>
+                <tr>
+                    <th>Author</th>
+                    <th>Post</th>
+                    <th>Delete?</th>
+                </tr>
+                <?php
+                    $mysqli = new mysqli("mysql.eecs.ku.edu", "tstrickler", "vai4Chai", "tstrickler");
+                    if ($mysqli->connect_errno) {
+                        printf("Failed to connect: %s\n", $mysqli->connect_error);
+                        exit();
+                    }
+
+                    $query = "SELECT post_id, author_id, content FROM Posts";
+                    $result = $mysqli->query($query);
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["author_id"] . "</td>";
+                        echo "<td>" . $row["content"] . "</td>";
+                        echo "<td><input type='checkbox' name='" . $row["post_id"]. "'></td>";
+                        echo "</tr>";
+                    }
+                    $result->free();
+                    $mysqli->close();
+
+                ?>
+            </table><br>
+            <input type="submit" value="Submit"/>
+        </form>
+        <iframe name="alert" height="0" width="0" style="border:none;"/>
     </body>
 </html>
