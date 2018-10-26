@@ -1,29 +1,38 @@
 <?php
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
     $mysqli = new mysqli("mysql.eecs.ku.edu", "tstrickler", "vai4Chai", "tstrickler");
     if ($mysqli->connect_errno) {
         printf("Failed to connect: %s\n", $mysqli->connect_error);
         exit();
     }
 
-    $fail = FALSE;
+    $message = "alert('Selected posts deleted successfully.');";
 
-    foreach ($_POST as $key) {
-        $query = "DELETE FROM Posts WHERE post_id='" . $key . "'";
-        if (!$mysqli->query($query)) {
-            $fail = TRUE;
+    if (count($_POST) <= 1) {
+        $message = "alert('No messages selected.');";
+    }
+    else {
+        foreach ($_POST as $key => $value) {
+            if ($key == "submit") {
+                continue;
+            }
+            $query = "DELETE FROM Posts WHERE post_id='{$key}'";
+            if (!$mysqli->query($query)) {
+                $message = "alert('Failed to delete one or more posts.');";
+            }
         }
     }
 
-    echo "<script type='text/javascript'>";
+    $mysqli->close();
 
-    if ($fail) {
-        echo "alert('Failed to delete one or more posts.')";
-    }
-    else {
-        echo "alert('Selected posts deleted successfully.')";
-    }
+    echo "<script type='text/javascript'>";
+    echo $message;
+
+    // echo "window.history.back(-1);";
+    // echo "window.location.reload()";
 
     echo "</script>";
 
-    $mysqli->close();
+    //echo "<meta http-equiv='refresh' content='0'>";
 ?>

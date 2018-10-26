@@ -24,7 +24,7 @@
                         echo "<tr>";
                         echo "<td>" . $row["author_id"] . "</td>";
                         echo "<td>" . $row["content"] . "</td>";
-                        echo "<td><input type='checkbox' name='" . $row["post_id"]. "'></td>";
+                        echo "<td><input type='checkbox' name='" . $row["post_id"] . "'></td>";
                         echo "</tr>";
                     }
                     $result->free();
@@ -32,8 +32,9 @@
 
                 ?>
             </table><br>
-            <input type="submit" value="Submit"/>
+            <input type="submit" name="submit" value="Submit"/>
         </form>
-        <iframe name="alert" height="0" width="0" style="border:none;"/>
+        <iframe name="alert" height="1000" width="1000"/>
+
     </body>
 </html>
