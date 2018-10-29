@@ -1,6 +1,7 @@
 <?php
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
+
     $mysqli = new mysqli("mysql.eecs.ku.edu", "tstrickler", "vai4Chai", "tstrickler");
     if ($mysqli->connect_errno) {
         printf("Failed to connect: %s\n", $mysqli->connect_error);
@@ -28,11 +29,8 @@
 
     echo "<script type='text/javascript'>";
     echo $message;
-
-    // echo "window.history.back(-1);";
-    // echo "window.location.reload()";
-
+    if (isset($_POST["submit"])) {
+        echo "window.parent.location.reload(true);";
+    }
     echo "</script>";
-
-    //echo "<meta http-equiv='refresh' content='0'>";
 ?>
